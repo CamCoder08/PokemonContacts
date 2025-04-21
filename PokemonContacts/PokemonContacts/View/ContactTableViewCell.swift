@@ -31,7 +31,6 @@ class ContactTableViewCell: UITableViewCell {
     let phoneNumberLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .darkGray
         label.text = "010-6663-4458"
         return label
     }()
@@ -40,7 +39,8 @@ class ContactTableViewCell: UITableViewCell {
     // 커스텀 셀을 만들 때 실행되는 생성자
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        setupLayout()
+        selectionStyle = .none
+        setupLayout()
     }
 
     // 코드베이스로 진행할 경우 작성
@@ -52,20 +52,20 @@ class ContactTableViewCell: UITableViewCell {
         [profileImageView, nameLabel, phoneNumberLabel].forEach { addSubview($0) }
 
         profileImageView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
+            make.left.equalToSuperview().offset(30)
             make.centerY.equalToSuperview()
             make.width.height.equalTo(50) // 원형을 위해 정사각형 만들어야함
         }
 
         nameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(22)
-            make.left.equalTo(profileImageView.snp.right).offset(16)
+            make.centerY.equalToSuperview()
+            make.left.equalTo(profileImageView.snp.right).offset(25)
             make.right.equalToSuperview().inset(16)
         }
 
         phoneNumberLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(4)
-            make.left.right.equalTo(nameLabel)
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().inset(30)
         }
 
 
