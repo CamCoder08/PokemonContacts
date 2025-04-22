@@ -35,7 +35,16 @@ class AddContactViewController: UIViewController {
         return phoneNumberTextField
     }()
 
+    let randomImageButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("랜덤 이미지 생성", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.addTarget(self, action: #selector(fetchRandomPokemonImage), for: .touchUpInside)
+        return button
+    }()
+
     override func viewDidLoad() {
+        view.backgroundColor = .white
         super.viewDidLoad()
         setNavigationBar()
         setUI()
@@ -54,7 +63,7 @@ class AddContactViewController: UIViewController {
 
     private func setUI() {
 
-        [profileImageView, nameTextField, phoneNumberTextField].forEach { view.addSubview($0) }
+        [profileImageView, nameTextField, phoneNumberTextField, randomImageButton].forEach { view.addSubview($0) }
 
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(60)
@@ -73,8 +82,39 @@ class AddContactViewController: UIViewController {
             make.top.equalTo(nameTextField.snp.bottom).offset(16)
             make.left.right.height.equalTo(nameTextField)
         }
+
+        randomImageButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(profileImageView.snp.bottom).offset(30)
+        }
     }
 
+    @objc private func fetchRandomPokemonImage() {
+        PokemonAPI.fetchRandomPokemon { [weak self] result in
 
+            guard let self = self, let pokemon = result else {
+                print("데이터 로드 실패")
+                return
+            }
 
+            guard let imageURL = URL(string: pokemon.sprites.frontDefault) else {
+                print("이미지 URL 변환 실패")
+                return
+            }
+
+            URLSession.shared.dataTask(with: imageURL) { data, response, error in
+
+                guard let data = data, error == nil else {
+                    print("이미지 다운로드 실패")
+                    return
+                }
+
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self.profileImageView.image = image
+                    }
+                }
+            }.resume()
+        }
+    }
 }

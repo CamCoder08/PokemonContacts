@@ -16,7 +16,7 @@ class PokemonListViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .brown
+        view.backgroundColor = .white
 
         setupNavigationBar()
         setupTableView()
@@ -45,7 +45,6 @@ class PokemonListViewController: UIViewController, UITableViewDelegate, UITableV
 
         tableView.rowHeight = 80
         tableView.separatorStyle = .singleLine // 구분선
-        tableView.backgroundColor = .brown
 
         // 커스텀셀을 테이블뷰에 등록
         tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: "ContactCell")
@@ -77,7 +76,7 @@ class PokemonListViewController: UIViewController, UITableViewDelegate, UITableV
 
         cell.nameLabel.text = contact.name
         cell.phoneNumberLabel.text = contact.phoneNumber
-        cell.backgroundColor = .brown
+
         return cell
 
     }

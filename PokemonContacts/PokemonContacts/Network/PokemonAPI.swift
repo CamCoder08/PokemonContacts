@@ -8,7 +8,7 @@
 import Foundation
 
 class PokemonAPI {
-
+    // URLSession을 사용한 포켓몬 API 요청(request) 함수
     static func fetchRandomPokemon(completion: @escaping (Pokemon?) -> Void) {
 
         let randomID = Int.random(in: 1...1000) // ID로 쓰일 랜덤 넘버 생성
@@ -29,7 +29,7 @@ class PokemonAPI {
         session.dataTask(with: request) { data, response, error in // 네트워크 요청을 보냄
 
             guard let data = data, error == nil else { // 데이터가 있는지, 에러가 없는지 체크
-                print("데이터가 로드 실패")
+                print("데이터 로드 실패")
                 completion(nil)
                 return
             }
