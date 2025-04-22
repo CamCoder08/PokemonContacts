@@ -29,7 +29,8 @@ class PokemonListViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     @objc private func addButtonTapped() {
-        print("추가 버튼 눌림") // 임시 로그 테스트
+        let addViewController = AddContactViewController()
+        navigationController?.pushViewController(addViewController, animated: true)
     }
 
     private func setupTableView() {

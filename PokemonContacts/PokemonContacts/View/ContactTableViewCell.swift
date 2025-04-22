@@ -30,7 +30,7 @@ class ContactTableViewCell: UITableViewCell {
 
     let phoneNumberLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.text = "010-6663-4458"
         return label
     }()
@@ -52,7 +52,7 @@ class ContactTableViewCell: UITableViewCell {
         [profileImageView, nameLabel, phoneNumberLabel].forEach { addSubview($0) }
 
         profileImageView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(30)
+            make.left.equalToSuperview().offset(35)
             make.centerY.equalToSuperview()
             make.width.height.equalTo(50) // 원형을 위해 정사각형 만들어야함
         }
@@ -65,7 +65,7 @@ class ContactTableViewCell: UITableViewCell {
 
         phoneNumberLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.right.equalToSuperview().inset(30)
+            make.right.equalToSuperview().inset(35)
         }
 
 
