@@ -17,21 +17,19 @@ class ContactTableViewCell: UITableViewCell {
         imageView.clipsToBounds = true // 이미지 크기가 뷰를 초과할 경우 잘라냄
 //        imageView.backgroundColor = UIColor.systemGray
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.darkGray.cgColor
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
         return imageView
     }()
 
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.text = "변준영"
         return label
     }()
 
     let phoneNumberLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "010-6663-4458"
         return label
     }()
 
@@ -41,6 +39,11 @@ class ContactTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         setupLayout()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        profileImageView.image = nil
     }
 
     // 코드베이스로 진행할 경우 작성

@@ -14,23 +14,28 @@ class AddContactViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 80
         imageView.clipsToBounds = true // 이미지 크기가 뷰를 초과할 경우 잘라냄
-        imageView.backgroundColor = UIColor.systemGray
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.darkGray.cgColor
+        imageView.layer.borderWidth = 3
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
         return imageView
     }()
 
     let nameTextField: UITextField = {
         let nameTextField = UITextField()
-        nameTextField.placeholder = "이름을 입력하세요"
-        nameTextField.borderStyle = .roundedRect // 텍스트필드 테두리
+        nameTextField.placeholder = "   이름을 입력하세요"
+        nameTextField.borderStyle = .none // 텍스트필드 테두리
+        nameTextField.layer.borderWidth = 1.5
+        nameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        nameTextField.layer.cornerRadius = 10
         return nameTextField
     }()
 
     let phoneNumberTextField: UITextField = {
         let phoneNumberTextField = UITextField()
-        phoneNumberTextField.placeholder = "전화번호를 입력하세요"
-        phoneNumberTextField.borderStyle = .roundedRect
+        phoneNumberTextField.placeholder = "   전화번호를 입력하세요"
+        phoneNumberTextField.borderStyle = .none
+        phoneNumberTextField.layer.borderWidth = 1.5
+        phoneNumberTextField.layer.borderColor = UIColor.lightGray.cgColor
+        phoneNumberTextField.layer.cornerRadius = 10
         phoneNumberTextField.keyboardType = .numberPad
         return phoneNumberTextField
     }()
@@ -91,7 +96,7 @@ class AddContactViewController: UIViewController {
 
             navigationController?.popViewController(animated: true)
         } catch {
-            print("연락처 자장 실패")
+            print("연락처 저장 실패")
         }
     }
 
