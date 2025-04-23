@@ -23,6 +23,35 @@ class PokemonListViewController: UIViewController, UITableViewDelegate, UITableV
         setupDummyData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchContacts()
+    }
+
+    private func fetchContacts() {
+
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            print("AppDelegate 접근 실패")
+            return
+        }
+
+        let context = appDelegate.persistentContainer.viewContext
+
+        let fetchRequest = ContactEntity.fetchRequest()
+
+        do {
+            let contactEntities = try context.fetch(fetchRequest)
+
+            contactList = contactEntities.map {
+                Contact(name: $0.name ?? "", phoneNumber: $0.phoneNumber ?? "", imageURL: $0.imageURL ?? "")
+            }
+
+            tableView.reloadData()
+        } catch {
+            print("데이터 불러오기 실패")
+        }
+    }
+
     private func setupNavigationBar() {
         title = "친구 목록"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(addButtonTapped))

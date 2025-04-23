@@ -43,6 +43,8 @@ class AddContactViewController: UIViewController {
         return button
     }()
 
+    var currentImageURL: String?
+
     override func viewDidLoad() {
         view.backgroundColor = .white
         super.viewDidLoad()
@@ -58,7 +60,39 @@ class AddContactViewController: UIViewController {
     }
 
     @objc private func applyButtonTapped() {
-        print("적용 버튼 테스트")
+        guard let name = nameTextField.text, !name.isEmpty else {
+            print("이름이 비었습니다")
+            return
+        }
+
+        guard let phone = phoneNumberTextField.text, !phone.isEmpty else {
+            print("전화번호가 비었습니다.")
+            return
+        }
+
+        let imageURL = currentImageURL ?? ""
+
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            print("AppDelegate 접근 실패")
+            return
+        }
+
+        let context = appDelegate.persistentContainer.viewContext
+
+        let newContact = ContactEntity(context: context)
+
+        newContact.name = name
+        newContact.phoneNumber = phone
+        newContact.imageURL = imageURL
+
+        do {
+            try context.save()
+            print("연락처 저장 성공")
+
+            navigationController?.popViewController(animated: true)
+        } catch {
+            print("연락처 자장 실패")
+        }
     }
 
     private func setUI() {
