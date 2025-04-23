@@ -15,7 +15,7 @@ class ContactTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 25
         imageView.clipsToBounds = true // 이미지 크기가 뷰를 초과할 경우 잘라냄
-        imageView.backgroundColor = UIColor.systemGray
+//        imageView.backgroundColor = UIColor.systemGray
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.darkGray.cgColor
         return imageView

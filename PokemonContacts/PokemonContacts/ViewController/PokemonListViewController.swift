@@ -20,7 +20,7 @@ class PokemonListViewController: UIViewController, UITableViewDelegate, UITableV
 
         setupNavigationBar()
         setupTableView()
-        setupDummyData()
+//        setupDummyData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -80,16 +80,16 @@ class PokemonListViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
 
-    private func setupDummyData() {
-        contactList = [
-        Contact(name: "준영", phoneNumber: "010-6663-4458", imageURL: ""),
-        Contact(name: "승호", phoneNumber: "010-9328-4985", imageURL: ""),
-        Contact(name: "이호", phoneNumber: "010-2520-4279", imageURL: ""),
-        Contact(name: "종호", phoneNumber: "010-7479-9850", imageURL: ""),
-        Contact(name: "희원", phoneNumber: "010-5742-2668", imageURL: "")
-        ]
-        tableView.reloadData()
-    }
+//    private func setupDummyData() {
+//        contactList = [
+//        Contact(name: "준영", phoneNumber: "010-6663-4458", imageURL: ""),
+//        Contact(name: "승호", phoneNumber: "010-9328-4985", imageURL: ""),
+//        Contact(name: "이호", phoneNumber: "010-2520-4279", imageURL: ""),
+//        Contact(name: "종호", phoneNumber: "010-7479-9850", imageURL: ""),
+//        Contact(name: "희원", phoneNumber: "010-5742-2668", imageURL: "")
+//        ]
+//        tableView.reloadData()
+//    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contactList.count
@@ -105,6 +105,25 @@ class PokemonListViewController: UIViewController, UITableViewDelegate, UITableV
 
         cell.nameLabel.text = contact.name
         cell.phoneNumberLabel.text = contact.phoneNumber
+
+        if let url = URL(string: contact.imageURL) {
+
+            URLSession.shared.dataTask(with: url) { data, response, error in
+
+                guard let data = data, error == nil else {
+                    print("이미지 다운로드 실패")
+                    return
+                }
+
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        cell.profileImageView.image = image
+                    }
+                }
+            }.resume()
+        } else {
+            cell.profileImageView.image = UIImage(named: "placeholder")
+        }
 
         return cell
 

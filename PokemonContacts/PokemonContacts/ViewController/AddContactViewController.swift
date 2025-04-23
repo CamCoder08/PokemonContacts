@@ -35,7 +35,7 @@ class AddContactViewController: UIViewController {
         return phoneNumberTextField
     }()
 
-    let randomImageButton: UIButton = {
+    lazy var randomImageButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("랜덤 이미지 생성", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
@@ -146,6 +146,7 @@ class AddContactViewController: UIViewController {
                 if let image = UIImage(data: data) {
                     DispatchQueue.main.async {
                         self.profileImageView.image = image
+                        self.currentImageURL = pokemon.sprites.frontDefault
                     }
                 }
             }.resume()
